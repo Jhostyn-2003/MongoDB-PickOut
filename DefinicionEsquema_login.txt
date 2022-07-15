@@ -1,0 +1,30 @@
+// ------- Agregar coleccion con esquema y validaciones -------
+
+db.createCollection("logins", {
+   validator: {$jsonSchema: {
+      bsonType: "object",
+	   required: ["ID_login", "ID_paralelo", "contrasenia"],
+	   properties: {
+  	      ID_login: {
+            bsonType: "int",
+            description: "ID del inicio de sesion"
+	      },
+         ID_paralelo: {
+            bsonType: "int",
+            description: "ID del paralelo al que pertenece el login"
+         },
+         contrasenia: {
+            bsonType: "string",
+            minLength: 8,
+            maxLength: 16,
+            description: "Contraseña del login"
+         }
+      }
+   }
+}})
+// Insercion de un archivo en la coleccion
+db.logins.insert({
+   ID_login: 1,
+   ID_paralelo: 1,
+   contrasenia: "contraseñaParalelo1",
+});
